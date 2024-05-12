@@ -1,0 +1,56 @@
+public enum PieceType { Pawn, Rook, Knight, Bishop, Queen, King }
+public enum PieceColor { White, Black }
+
+public abstract class ChessPiece
+{
+    public PieceType Type { get; set; }
+    public PieceColor Color { get; set; }
+    public int X { get; set; }
+    public int Y { get; set; }
+
+    public ChessPiece(PieceType type, PieceColor color, int x, int y)
+    {
+        Type = type;
+        Color = color;
+        X = x;
+        Y = y;
+    }
+
+    // Method to return possible moves for a piece
+    public virtual List<(int, int)> GetMoves(ChessPiece[,] board)
+    {
+        return new List<(int, int)>();
+    }
+}
+
+public class Board
+{
+    public ChessPiece[,] Pieces = new ChessPiece[8, 8];
+
+    // Method to initialize the board with pieces
+    public void Initialize()
+    {
+        // Place pieces on the board
+    }
+
+    // Method to move a piece on the board
+    public void MovePiece(int startX, int startY, int endX, int endY)
+    {
+        ChessPiece piece = Pieces[startX, startY];
+        Pieces[endX, endY] = piece;
+        Pieces[startX, startY] = null;
+    }
+}
+
+public class GameManager
+{
+    public Board ChessBoard { get; set; }
+
+    public GameManager()
+    {
+        ChessBoard = new Board();
+        ChessBoard.Initialize();
+    }
+
+    // Methods to control the flow of the game
+}
