@@ -1,0 +1,38 @@
+public class Pawn : ChessPiece
+{
+    public Pawn(PieceType type, PieceColor color, int x, int y) : base(type, color, x, y)
+    {
+    }
+
+    public override List<(int, int)> GetMoves(ChessPiece[,] board)
+    {
+        var moves = new List<(int, int)>();
+        int direction = Color == PieceColor.White ? 1 : -1;
+
+        
+        if (board[X + direction, Y] == null)
+        {
+            moves.Add((X + direction, Y));
+            
+            if ((Color == PieceColor.White && X == 1) || (Color == PieceColor.Black && X == 6))
+            {
+                if (board[X + 2 * direction, Y] == null)
+                {
+                    moves.Add((X + 2 * direction, Y));
+                }
+            }
+        }
+
+        
+        if (Y > 0 && board[X + direction, Y - 1] != null && board[X + direction, Y - 1].Color != this.Color)
+        {
+            moves.Add((X + direction, Y - 1));
+        }
+        if (Y < 7 && board[X + direction, Y + 1] != null && board[X + direction, Y + 1].Color != this.Color)
+        {
+            moves.Add((X + direction, Y + 1));
+        }
+
+        return moves;
+    }
+}
