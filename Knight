@@ -1,0 +1,33 @@
+public class Knight : ChessPiece
+{
+    public Knight(PieceType type, PieceColor color, int x, int y) : base(type, color, x, y)
+    {
+    }
+
+    public override List<(int, int)> GetMoves(ChessPiece[,] board)
+    {
+        var moves = new List<(int, int)>();
+
+        
+        int[] dx = {2, 1, -1, -2, -2, -1, 1, 2};
+        int[] dy = {1, 2, 2, 1, -1, -2, -2, -1};
+
+        for (int i = 0; i < 8; i++)
+        {
+            int nextX = X + dx[i];
+            int nextY = Y + dy[i];
+
+            
+            if (nextX >= 0 && nextX < 8 && nextY >= 0 && nextY < 8)
+            {
+                
+                if (board[nextX, nextY] == null || board[nextX, nextY].Color != this.Color)
+                {
+                    moves.Add((nextX, nextY));
+                }
+            }
+        }
+
+        return moves;
+    }
+}
