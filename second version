@@ -1,0 +1,87 @@
+using System;
+using System.Collections.Generic;
+
+public enum PieceType { Pawn, Rook, Knight, Bishop, Queen, King }
+public enum PieceColor { White, Black }
+
+public abstract class ChessPiece
+{
+    public PieceType Type { get; private set; }
+    public PieceColor Color { get; private set; }
+    public int X { get; set; }
+    public int Y { get; set; }
+
+    protected ChessPiece(PieceType type, PieceColor color, int x, int y)
+    {
+        Type = type;
+        Color = color;
+        X = x;
+        Y = y;
+    }
+
+    public abstract List<(int, int)> GetMoves(ChessPiece[,] board);
+}
+
+
+
+public class Board
+{
+    public ChessPiece[,] Pieces = new ChessPiece[8, 8];
+
+    public void Initialize()
+{
+    
+    Pieces[0, 0] = new Rook(PieceType.Rook, PieceColor.Black, 0, 0);
+    Pieces[0, 1] = new Knight(PieceType.Knight, PieceColor.Black, 0, 1);
+    Pieces[0, 2] = new Bishop(PieceType.Bishop, PieceColor.Black, 0, 2);
+    Pieces[0, 3] = new Queen(PieceType.Queen, PieceColor.Black, 0, 3);
+    Pieces[0, 4] = new King(PieceType.King, PieceColor.Black, 0, 4);
+    Pieces[0, 5] = new Bishop(PieceType.Bishop, PieceColor.Black, 0, 5);
+    Pieces[0, 6] = new Knight(PieceType.Knight, PieceColor.Black, 0, 6);
+    Pieces[0, 7] = new Rook(PieceType.Rook, PieceColor.Black, 0, 7);
+
+    
+    for (int i = 0; i < 8; i++)
+    {
+        Pieces[1, i] = new Pawn(PieceType.Pawn, PieceColor.Black, 1, i);
+    }
+
+    
+    Pieces[7, 0] = new Rook(PieceType.Rook, PieceColor.White, 7, 0);
+    Pieces[7, 1] = new Knight(PieceType.Knight, PieceColor.White, 7, 1);
+    Pieces[7, 2] = new Bishop(PieceType.Bishop, PieceColor.White, 7, 2);
+    Pieces[7, 3] = new Queen(PieceType.Queen, PieceColor.White, 7, 3);
+    Pieces[7, 4] = new King(PieceType.King, PieceColor.White, 7, 4);
+    Pieces[7, 5] = new Bishop(PieceType.Bishop, PieceColor.White, 7, 5);
+    Pieces[7, 6] = new Knight(PieceType.Knight, PieceColor.White, 7, 6);
+    Pieces[7, 7] = new Rook(PieceType.Rook, PieceColor.White, 7, 7);
+
+    
+    for (int i = 0; i < 8; i++)
+    {
+        Pieces[6, i] = new Pawn(PieceType.Pawn, PieceColor.White, 6, i);
+    }
+}
+
+    public void MovePiece(int startX, int startY, int endX, int endY)
+    {
+        ChessPiece piece = Pieces[startX, startY];
+        Pieces[endX, endY] = piece;
+        piece.X = endX;
+        piece.Y = endY;
+        Pieces[startX, startY] = null;
+    }
+}
+
+public class GameManager
+{
+    public Board ChessBoard { get; private set; }
+
+    public GameManager()
+    {
+        ChessBoard = new Board();
+        ChessBoard.Initialize();
+    }
+
+    // Additional game management methods could include checking for check/checkmate, turn management, etc.
+}
