@@ -1,0 +1,48 @@
+public class Bishop : ChessPiece
+{
+    public Bishop(PieceType type, PieceColor color, int x, int y) : base(type, color, x, y)
+    {
+    }
+
+    public override List<(int, int)> GetMoves(ChessPiece[,] board)
+    {
+        var moves = new List<(int, int)>();
+
+        
+        int[] dx = {1, 1, -1, -1};
+        int[] dy = {1, -1, -1, 1};
+
+        
+        for (int i = 0; i < 4; i++)
+        {
+            int nextX = X;
+            int nextY = Y;
+
+            while (true)
+            {
+                nextX += dx[i];
+                nextY += dy[i];
+
+                
+                if (nextX < 0 || nextX >= 8 || nextY < 0 || nextY >= 8)
+                    break;
+
+                
+                if (board[nextX, nextY] != null)
+                {
+                    
+                    if (board[nextX, nextY].Color != this.Color)
+                    {
+                        moves.Add((nextX, nextY));
+                    }
+                    break; 
+                }
+
+                
+                moves.Add((nextX, nextY));
+            }
+        }
+
+        return moves;
+    }
+}
