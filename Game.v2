@@ -1,0 +1,31 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class NewBehaviourScript : MonoBehaviour
+{
+    public GameObject chesspiece;
+    // heer taş için takım ayarı ve pozisyou
+
+
+    private GameObject[,] positions = new GameObject[8,8];
+    private GameObject[] playerBlack = new GameObject[16];
+    private GameObject[] playerWhite = new GameObject[16];
+    private bool gameOver = false;
+    private string currentPlayer = "white";
+    
+
+
+    void Start()
+    {
+        playerWhite = new GameObject[]{
+            Create("white_rook",0,0),Create("white_rook",1,0),Create("white_rook",2,0)
+            ,Create("white_rook",3,0),Create("white_rook",4,0),Create("white_rook",5,0),
+            Create("white_rook",6,0),Create("white_rook",7,0),Create("white_rook",8,0),
+            Create("white_rook",0,1),Create("white_rook",1,1),Create("white_rook",2,1),
+            Create("white_rook",3,1),Create("white_rook",4,1),Create("white_rook",5,1),
+            Create("white_rook",6,1),Create("white_rook",7,1),Create("white_rook",8,1)};
+        }
+    }
+
+}
